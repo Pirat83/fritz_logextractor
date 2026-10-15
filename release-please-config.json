@@ -1,0 +1,16 @@
+{
+    "packages": {
+        ".": {
+            "release-type": "python",
+            "package-name": "fritzlogextractor",
+            "bump-minor-pre-major": true,
+            "extra-files": [
+                {
+                    "type": "toml",
+                    "path": "uv.lock",
+                    "jsonpath": "$.package[?(@.name.value==\"fritz-logextractor\")].version"
+                }
+            ]
+        }
+    }
+}

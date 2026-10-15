@@ -1,0 +1,5 @@
+docs/
+.vscode/
+.github/
+.venv/
+tests/
