@@ -23,10 +23,3 @@ def test_bad_config_exits_1(monkeypatch):
     with pytest.raises(SystemExit) as exc:
         main([])
     assert exc.value.code == 1
-
-
-def test_valid_config_reports_not_implemented(caplog):
-    with pytest.raises(SystemExit) as exc:
-        main(["--config", "tests/conffiles/validconfig.yaml"])
-    assert exc.value.code == 2
-    assert "Configured 2 device(s), polling every 30s" in caplog.text

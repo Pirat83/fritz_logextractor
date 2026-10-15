@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import sys
+import threading
 
-from fritzlogextractor.config import ConfigError, get_config
+from fritzlogextractor.config import ConfigError, ExtractorConfig, get_config
+from fritzlogextractor.extractor import DeviceExtractor, ExtractionError
 
 from . import __version__
 
@@ -22,6 +25,9 @@ def parse_cmdline(argv: list[str] | None = None) -> argparse.Namespace:
         "--log-level",
         choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
         help="Override the log level from the configuration",
+    )
+    parser.add_argument(
+        "--once", action="store_true", help="Read each device once, print its log and exit"
     )
     parser.add_argument("--version", action="version", version=__version__)
     return parser.parse_args(argv)
@@ -47,14 +53,33 @@ def main(argv: list[str] | None = None) -> None:
 
     logging.getLogger().setLevel(args.log_level or config.log_level)
     logger.info(
-        "Configured %d device(s), polling every %ds, state in %s",
-        len(config.devices),
-        config.poll_interval,
-        config.state_dir,
+        "Configured %d device(s), polling every %ds", len(config.devices), config.poll_interval
     )
-    # The extraction loop is not implemented yet; see AGENTS.md for the design.
-    logger.error("Log extraction is not implemented yet.")
-    sys.exit(2)
+    run(config, once=args.once)
+
+
+def poll_all(extractors: list[DeviceExtractor]) -> None:
+    """Poll every device once and print new entries as JSON lines on stdout."""
+    for extractor in extractors:
+        try:
+            records = extractor.poll()
+        except ExtractionError as e:
+            logger.warning("%s: %s, will retry", extractor.name, e)
+            continue
+        for record in records:
+            sys.stdout.write(json.dumps(record, ensure_ascii=False) + "\n")
+        sys.stdout.flush()
+
+
+def run(
+    config: ExtractorConfig, *, once: bool = False, stop: threading.Event | None = None
+) -> None:
+    extractors = [DeviceExtractor(device) for device in config.devices]
+    stop = stop or threading.Event()
+    while True:
+        poll_all(extractors)
+        if once or stop.wait(config.poll_interval):
+            return
 
 
 if __name__ == "__main__":
