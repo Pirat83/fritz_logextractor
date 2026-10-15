@@ -11,6 +11,12 @@ def test_version(capsys):
     assert capsys.readouterr().out.strip() == __version__
 
 
+def test_version_comes_from_the_installed_distribution():
+    from importlib.metadata import version
+
+    assert __version__ == version("fritz-logextractor")
+
+
 def test_bad_config_exits_1(monkeypatch):
     monkeypatch.delenv("FRITZ_USERNAME", raising=False)
     monkeypatch.delenv("FRITZ_PASSWORD", raising=False)
