@@ -1,0 +1,8 @@
+fritz_logextractor
+Copyright 2026 Patrick Dreker and Rafael Kansy
+
+The event log parser, duplicate filter and time zone handling
+(fritzlogextractor/eventlog.py and tests/test_eventlog.py) are adapted
+from code by Rafael Kansy (@Pirat83), submitted to fritz_exporter in
+https://github.com/pdreker/fritz_exporter/pull/719 under the Apache
+License, Version 2.0.

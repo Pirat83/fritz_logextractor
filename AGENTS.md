@@ -12,7 +12,8 @@ reboots.
 
 - **Entrypoint**: `fritzlogextractor/__main__.py` → `main()`
 - **Python version**: 3.14+
-- **Status**: scaffold. Config, CLI and tooling exist; extraction is not implemented.
+- **Status**: proof of concept. Fetch, parse, in-memory duplicate filter and JSON output work;
+  see "Planned Architecture" for what is missing.
 
 ---
 
@@ -52,7 +53,14 @@ Use `logging`, never `print()`. Exception messages are plain strings assigned to
 
 ## Planned Architecture
 
-Not built yet. This records the design agreed when the project was started (October 2026).
+Records the design agreed when the project was started (October 2026).
+
+**Built (PoC):** `eventlog.py` (strict parser, in-memory tracker keyed on time + message,
+POSIX time zone rules, output record; adapted from fritz_exporter PR #719), `extractor.py` (fetch
+per device through fritzconnection's session), poll loop with `--once` in `__main__.py`.
+
+**Missing:** state file, reboot detection, handling of pre-sync timestamps, identity by position
+instead of time (below), remote access, tests against a real box.
 
 ### Data source
 

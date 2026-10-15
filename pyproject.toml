@@ -18,6 +18,7 @@ dependencies = [
     "fritzconnection>=1.0.0",
     "pyyaml",
     "attrs>=22.2,<27.0",
+    "defusedxml>=0.7.1",
 ]
 
 [project.urls]
