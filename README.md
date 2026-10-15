@@ -71,4 +71,8 @@ uv run pytest
 
 ## License
 
-Apache License 2.0, see [LICENSE.md](LICENSE.md).
+Copyright 2026 Patrick Dreker and Rafael Kansy.
+
+Apache License 2.0, see [LICENSE.md](LICENSE.md) and [NOTICE](NOTICE). The event log parsing is
+adapted from Rafael Kansy's work in
+[fritz_exporter #719](https://github.com/pdreker/fritz_exporter/pull/719).

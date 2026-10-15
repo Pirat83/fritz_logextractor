@@ -251,7 +251,7 @@ def resolve_utc_offset(
     return dst_offset if is_dst else std_offset
 
 
-# Copyright 2026 Rafael Kansy, Patrick Dreker <patrick@dreker.de>
+# Copyright 2026 Rafael Kansy and Patrick Dreker <patrick@dreker.de>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
