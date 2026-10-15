@@ -7,6 +7,11 @@ name: release-please
 jobs:
   release:
     runs-on: ubuntu-latest
+    # The repository default token is read-only; release-please pushes a
+    # release branch and opens a PR.
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: googleapis/release-please-action@v5
         id: release
