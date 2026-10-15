@@ -1,13 +1,17 @@
 # fritz_logextractor
 
-Reads the event log of AVM Fritz! devices over TR-064 and writes each new entry once, as a
+> [!WARNING]
+> **This tool does not work yet. It extracts nothing.**
+>
+> Only the project scaffold exists: configuration, CLI and tooling. If you run it now, it reads
+> its config and exits with "Log extraction is not implemented yet." Do not deploy it. The planned
+> design is in [AGENTS.md](AGENTS.md).
+
+Will read the event log of AVM Fritz! devices over TR-064 and write each new entry once, as a
 structured log line, so a log stack (Loki, Elasticsearch, journald, …) can keep it.
 
 The Fritz!Box keeps its event log in RAM: a reboot or a firmware update empties it, and the box
-has no syslog push. This tool polls the log and forwards what is new.
-
-> **Status: early scaffold.** Configuration and tooling are in place; the extraction itself is
-> not implemented yet. See [AGENTS.md](AGENTS.md) for the planned design.
+has no syslog push. This tool is meant to poll the log and forward what is new.
 
 Companion to [fritz_exporter](https://github.com/pdreker/fritz_exporter), which exports the
 device's metrics to Prometheus.
