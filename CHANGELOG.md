@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/Pirat83/fritz_logextractor/compare/fritzlogextractor-v0.1.0...fritzlogextractor-v0.1.1) (2026-10-18)
+
+
+### Bug Fixes
+
+* run the container as nobody (65534) instead of root ([e32158c](https://github.com/Pirat83/fritz_logextractor/commit/e32158cde54990d846c20b9559af33ccd9add85f))
+
 ## 0.1.0 (2026-10-15)
 
 
