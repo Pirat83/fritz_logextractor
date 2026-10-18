@@ -21,7 +21,10 @@ COPY --from=build /app/dist/*.whl /
 
 RUN pip install /fritz_logextractor-*.whl && \
     rm /fritz_logextractor-*.whl && \
-    mkdir -p /etc/fritz /var/lib/fritzlogextractor
+    mkdir -p /etc/fritz /var/lib/fritzlogextractor && \
+    chown 65534:65534 /var/lib/fritzlogextractor
+
+USER 65534:65534
 
 VOLUME ["/var/lib/fritzlogextractor"]
 
