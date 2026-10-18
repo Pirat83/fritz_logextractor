@@ -1,5 +1,5 @@
 # Build .whl in a separate build container
-FROM python:3.14.8-alpine AS build
+FROM python:3.14.8-alpine@sha256:f6a589d43c42b9e7f7dc67a12d37132491f362859a5d750607710cc56da3bc72 AS build
 WORKDIR /app
 
 RUN pip install --upgrade pip build
@@ -10,7 +10,7 @@ COPY fritzlogextractor /app/fritzlogextractor
 RUN python -m build --wheel
 
 # Build the actual runner
-FROM python:3.14.8-alpine
+FROM python:3.14.8-alpine@sha256:f6a589d43c42b9e7f7dc67a12d37132491f362859a5d750607710cc56da3bc72
 
 LABEL Name=fritz_logextractor
 ENV PIP_NO_CACHE_DIR="true"
